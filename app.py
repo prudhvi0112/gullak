@@ -8,15 +8,16 @@ def get_current_user():
     x = data['sms']
     arr = []
     food, travel, shopping, bill_payments, fd_arr, tr_arr, sp_arr, bp_arr = 0, 0, 0, 0, [], [], [], []
+    food_brand, bill_payments_type = ["upiswiggy", "upizomato"], ["BBPSBP"]
     for i in x:
         l1 = i['text'].split(" ")
         for j in l1:
             if "@" in j:
                 x1 = j.split("@")
-                if "swiggy" in x1[0] or "zomato" in x1[0]:
+                if x1[0] in food_brand:
                     fd_arr.append(i)
                     food = food + float(l1[0][3:])
-                elif "BBPSBP" in j:
+                elif x1[0] in bill_payments_type:
                     bp_arr.append(i)
                     bill_payments = bill_payments + float(l1[0][3:])
     if food > 0:
