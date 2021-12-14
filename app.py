@@ -8,7 +8,7 @@ def get_current_user():
     x = data['sms']
     arr = []
     food, travel, shopping, bill_payments, fd_arr, tr_arr, sp_arr, bp_arr = 0, 0, 0, 0, [], [], [], []
-    food_brand, bill_payments_type = ["upiswiggy", "upizomato"], ["BBPSBP"]
+    food_brand, bill_payments_type, travel_type, shopping_type = ["upiswiggy", "upizomato"], ["BBPSBP"], [], []
     for i in x:
         l1 = i['text'].split(" ")
         for j in l1:
@@ -20,6 +20,12 @@ def get_current_user():
                 elif x1[0] in bill_payments_type:
                     bp_arr.append(i)
                     bill_payments = bill_payments + float(l1[0][3:])
+                elif x1[0] in travel_type:
+                    tr_arr.append(i)
+                    travel = travel + float(l1[0][3:])
+                elif x1[0] in shopping_type:
+                    sp_arr.append(i)
+                    shopping = shopping + float(l1[0][3:])
     if food > 0:
         di = [("category", "Food"), ("totalAmount", str(food)), ("smsArray", fd_arr)]
         dic = OrderedDict(di)
